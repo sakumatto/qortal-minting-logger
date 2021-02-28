@@ -7,7 +7,8 @@ As a Qortal minter you want to keep tabs on the height of the blockchain and the
 
 #Place the script in your Qortal directory
 The script is meant to reside in your home/qortal directory, that is a directory named qortal that resides under your home:
-```~$USER/qortal
+```
+	~$USER/qortal
 	/my-qortal-log.txt
 	/my-status-log.txt
 ```
@@ -22,11 +23,14 @@ When you run the script, you have two ways of entering you Qortal key:
 # Run the script automatically with cron
 You can place an automated way to run the script by entering it into your user crontab
 
-```crontab -e
+```
+	crontab -e
 ```
 
 Place these commands into it
 
-```*/5 * * * * /Users/saku/qortal/check.sh Qb123412345123412341234e74PYHJdaHC 2>&1
 ```
+	*/5 * * * * /Users/saku/qortal/check.sh Qb123412345123412341234e74PYHJdaHC 2>&1
+```
+
 In the above the Qb... is your Qortal key
