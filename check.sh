@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # A little Qortal logger by Saku Mättö
-# If you feel it helps you, you might want to consider buying me a coffee
-# QbZUGdXgSY5qfhfMfjxED5Be74PYHJdaHC
+
 
 # ONLY run this script in the Qortal installation directory which is
 # assumed to be usernamehome/qortal. If this is not so, pls
@@ -33,9 +32,16 @@ DATE=$(date +"%d.%m.%Y")
 DIR=$(eval echo "~$USER/qortal")
 FILE=$DIR/my-qortal-log.txt
 MINTFILE=$DIR/my-status-log.txt
+MONEYFILE=$DIR/qortal.balance.txt
+
 PRECHECK=$(curl  -s -q http://127.0.0.1:12391/admin/status)
 [ $1 ] && MYKEY=$1
 [ ! $MYKEY ] && read -n34 -p "Enter your Qortal key in the command if you do not wish to enter it here: " MYKEY && echo -e "\n"
+
+if [ $2 ]; then
+	MINTKEY=$2
+	MONEY=$(curl -s -X  GET "http://127.0.0.1:12391/addresses/balance/$MINTKEY" -H "accept: text/plain")
+fi
 
 #Prepare log files only if they do NOT exist
 [ ! -f $FILE ] && printf "#%5s %7s %-3s %6s (%3ss)\n" "TIME" "HEIGHT" "DIFF" "MINTED" "SEC" >> $FILE
@@ -119,7 +125,7 @@ fi
 #Log results
 printf "%5s %8s %5sM %s\n" "$DATE" "$TIME" "$MINTED" "$PRECHECK" >> $MINTFILE
 printf "%5s %8s %-3s %5s$L  (%3ss)\n" "$TIME" "$HEIGHT" "$DIFF" "$MINTED" "$ENDTIME" >> $FILE
-
+printf "%5s %8s %s\n" "$DATE" "$TIME" "$MONEY" >> $MONEYTFILE
 # Rotate log files if need be (ie size > 100 kB)
 rotate 100 $FILE
 rotate 100 $MINTFILE
