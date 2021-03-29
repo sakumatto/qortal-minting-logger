@@ -1,26 +1,33 @@
 # Qortal minting logger
  Log your minting activity by adding this script to crontab
 - Works on Mac and Linux / Pi
+- If your Qortal core is not running on this same machine, the script will not run.
 
 # Why Qortal minting logger
-As a Qortal minter you want to keep tabs on the height of the blockchain and the number you have minted. This bash script helps you do exactly that. The recommendation is to run it through cron, but you can equally run the script every now and then from the command line. The script writes its findings into two different log files and it rotates those files automatically.
+As a Qortal minter you want to keep tabs on the height of the blockchain and the number you have minted. This bash script helps you do exactly that. The recommendation is to run it through cron with five minutes intervals. The script writes its findings into three different log files and it rotates those files automatically.
 
 #Place the script in your Qortal directory
-The script is meant to reside in your home/qortal directory, that is a directory named qortal that resides under your home:
+The script is meant to reside in your home/qortal directory, that is: a directory named qortal that resides under your home:
 ```
 	~$USER/qortal
+	/check.sh
 	/my-qortal-log.txt
 	/my-status-log.txt
+	/qortal.balance.txt
 ```
 It will write into the same directory.
 
-You can replace your start.sh with the one here. The changes in this start.sh script will write every start / restart into the log file along with the pid of Qortal.
+You can replace your start.sh with the one herein. The changes in this start.sh script will write every start / restart into the log file along with the pid of Qortal.
+
 
 When you run the script, you have two ways of entering you Qortal key:
 1) By entering it as a parameter after the command
 1) The script will ask for it if not given on call
+1) The optional minting key is needed for full benefits
 
-# Run the script automatically with cron
+_Strong recommendation_ is to give key(s) on call o get full benefit of script
+
+# Therefore run the script automatically with cron
 You can place an automated way to run the script by entering it into your user crontab
 
 ```
@@ -37,7 +44,7 @@ In the above the Qb... is your Qortal key QM... is your Minting key
 
 # A little Qortal logger by Saku Mättö
 
-
+## Note
  ONLY run this script in the Qortal installation directory which is
  assumed to be usernamehome/qortal. If this is not so, pls
  change below to correct dir before fireing up
@@ -50,6 +57,10 @@ In the above the Qb... is your Qortal key QM... is your Minting key
 ```
  ie run every 5 minutes file and give qortal ID and minting key as entries after file name, finally pass all output to empty
 
+## Shebang
+Pls change the first row #!/bin/bash if your shell is different from mine
+
+## How it logs
  It prints the values in a form like this into a file "FILE"
   TIME   HEIGHT DIFF MINTED (SECS TEMP)
  16:40   309251 0    4310M  (  1s 74.7'C)
@@ -68,7 +79,7 @@ In the above the Qb... is your Qortal key QM... is your Minting key
 
  Every hour on the hour print Qort status to file MONEYFILE
 
- Change history
+## Change history
  March 16, 2021 added core version logging $VERSION
  March 20 added logging of core version number
  March 25 added functionality to log processor temp if on a Pi
