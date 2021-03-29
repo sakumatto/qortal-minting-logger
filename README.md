@@ -27,10 +27,50 @@ You can place an automated way to run the script by entering it into your user c
 	crontab -e
 ```
 
-Place these commands into it
+Place this line/command into it your crontab
 
 ```
-	*/5 * * * * /Users/saku/qortal/check.sh Qb123412345123412341234e74PYHJdaHC 2>&1
+	*/5 * * * * /Users/macos/qortal/check.sh Qb123412345123412341234e74PYHJdaHC QM123412345123412341234e74PYHJdaHC 2>&1
 ```
 
-In the above the Qb... is your Qortal key
+In the above the Qb... is your Qortal key QM... is your Minting key
+
+# A little Qortal logger by Saku Mättö
+
+
+ ONLY run this script in the Qortal installation directory which is
+ assumed to be usernamehome/qortal. If this is not so, pls
+ change below to correct dir before fireing up
+
+ This script is meant to be run automatically every five minutes by cron and
+ it will keep track of you minting and the height where you are.
+ // m h  dom mon dow   command   // SAMPLE crontab entry on row below
+```
+ */5 * * * * /home/pi/qortal/check.sh QQZUGdXgSY5ggrfMfjxs2wBe74PYHJdaHC 3mKQtEM9q7iPpcqsD73xcBvN12u8fomzs1PDcqjZHWbU 2>&1
+```
+ ie run every 5 minutes file and give qortal ID and minting key as entries after file name, finally pass all output to empty
+
+ It prints the values in a form like this into a file "FILE"
+  TIME   HEIGHT DIFF MINTED (SECS TEMP)
+ 16:40   309251 0    4310M  (  1s 74.7'C)
+ Time in 24H format
+         Present height your system reports for your chain
+                Height difference from last log
+                     How much you've minted
+                             (seconds it took this to run
+                                  Pi processor temp in Centigrade)
+
+ Always at tallying time it will print the number minted and core version
+ Pls set tally time to your liking (if midnight is not good for you)
+
+ In a separate file it will log the status of your system "MINTFILE"
+ This second file will help you determine if and why your Qortal is getting stuck
+
+ Every hour on the hour print Qort status to file MONEYFILE
+
+ Change history
+ March 16, 2021 added core version logging $VERSION
+ March 20 added logging of core version number
+ March 25 added functionality to log processor temp if on a Pi
+ March 29 added functionality to automatically orphan and to check core is online
+ Also made constants of size to rotate and number blocks to orphan & tally time and minimum log rows before orphan
