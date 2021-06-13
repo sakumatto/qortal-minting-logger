@@ -3,6 +3,8 @@
 - Works on Mac and Linux / Pi
 - If your Qortal core is not running on this same machine, the script will not run.
 
+This is provided as-is, no warranties.
+
 # Why Qortal minting logger
 As a Qortal minter you want to keep tabs on the height of the blockchain and the number you have minted. This bash script helps you do exactly that. The recommendation is to run it through cron with five minutes intervals. The script writes its findings into three different log files and it rotates those files automatically.
 
@@ -17,7 +19,7 @@ The script is meant to reside in your home/qortal directory, that is: a director
 ```
 It will write into the same directory.
 
-You can replace your start.sh with the one herein. The changes in this start.sh script will write every start / restart into the log file along with the pid of Qortal.
+You should replace your start.sh with the one herein. The changes in this start.sh script will write every start into the log file along with the pid of Qortal.
 
 
 When you run the script, you have two ways of entering you Qortal key:
@@ -34,7 +36,7 @@ You can place an automated way to run the script by entering it into your user c
 	crontab -e
 ```
 
-Place this line/command into it your crontab
+Place this line/command into it your crontab (replacing the path with your actual path)
 
 ```
 	*/5 * * * * /Users/macos/qortal/check.sh Qb123412345123412341234e74PYHJdaHC QM123412345123412341234e74PYHJdaHC 2>&1
@@ -79,9 +81,16 @@ Pls change the first row #!/bin/bash if your shell is different from mine
 
  Every hour on the hour print Qort status to file MONEYFILE
 
-## Change history
- March 16, 2021 added core version logging $VERSION
- March 20 added logging of core version number
- March 25 added functionality to log processor temp if on a Pi
- March 29 added functionality to automatically orphan and to check core is online
- Also made constants of size to rotate and number blocks to orphan & tally time and minimum log rows before orphan
+### Change history
+## March 16, 2021 added core version logging $VERSION
+## March 20 added logging of core version number
+## March 25 added functionality to log processor temp if on a Pi
+## March 29 added functionality to automatically orphan and to check core is online
+## Also made constants of size to rotate and number blocks to orphan & tally time and minimum log rows before orphan
+## April 1 fixed orphaning. Added selector to turn off automatic orphaning.
+## April 4 added setting to bug to separate bugfile, can be turned off or on
+## All of April a lot of testing and changes of no use. Making automatic orphaning reliable is critical
+## May 2 Corrected mintstatus() level changes, ie from L1 to L2 you need the 7200 plus 64800 etc as they are cumulative.
+## May 27 when leveling up to height, print 9999 e102e instead of actual minted & level if said error occurs 
+## and from then on "0M" (as it is still zero minted ). e102e indicates that your ID is not to be found on the blockchain.
+## This will be the case when you build from genesis up to the point when your ID first is created.
