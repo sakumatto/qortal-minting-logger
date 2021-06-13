@@ -2,7 +2,7 @@
  Log your minting activity by adding this script to crontab
 - Works on Mac and Linux / Pi
 - If your Qortal core is not running on this same machine, the script will not run.
-
+- By sakumatto on https://discord.com/channels/348175815822802946/
 This is provided as-is, no warranties.
 
 # Why Qortal minting logger
@@ -44,7 +44,6 @@ Place this line/command into it your crontab (replacing the path with your actua
 
 In the above the Qb... is your Qortal key QM... is your Minting key
 
-# A little Qortal logger by Saku Mättö
 
 ## Note
  ONLY run this script in the Qortal installation directory which is
@@ -64,7 +63,7 @@ Pls change the first row #!/bin/bash if your shell is different from mine
 
 ## How it logs
  It prints the values in a form like this into a file "FILE"
-  TIME   HEIGHT DIFF MINTED (SECS TEMP)
+```  TIME   HEIGHT DIFF MINTED (SECS TEMP)
  16:40   309251 0    4310M  (  1s 74.7'C)
  Time in 24H format
          Present height your system reports for your chain
@@ -72,7 +71,7 @@ Pls change the first row #!/bin/bash if your shell is different from mine
                      How much you've minted
                              (seconds it took this to run
                                   Pi processor temp in Centigrade)
-
+```
  Always at tallying time it will print the number minted and core version
  Pls set tally time to your liking (if midnight is not good for you)
 
@@ -82,15 +81,15 @@ Pls change the first row #!/bin/bash if your shell is different from mine
  Every hour on the hour print Qort status to file MONEYFILE
 
 ### Change history
-## March 16, 2021 added core version logging $VERSION
-## March 20 added logging of core version number
-## March 25 added functionality to log processor temp if on a Pi
-## March 29 added functionality to automatically orphan and to check core is online
-## Also made constants of size to rotate and number blocks to orphan & tally time and minimum log rows before orphan
-## April 1 fixed orphaning. Added selector to turn off automatic orphaning.
-## April 4 added setting to bug to separate bugfile, can be turned off or on
-## All of April a lot of testing and changes of no use. Making automatic orphaning reliable is critical
-## May 2 Corrected mintstatus() level changes, ie from L1 to L2 you need the 7200 plus 64800 etc as they are cumulative.
-## May 27 when leveling up to height, print 9999 e102e instead of actual minted & level if said error occurs 
-## and from then on "0M" (as it is still zero minted ). e102e indicates that your ID is not to be found on the blockchain.
-## This will be the case when you build from genesis up to the point when your ID first is created.
+- March 16, 2021 added core version logging $VERSION
+- March 20 added logging of core version number
+- March 25 added functionality to log processor temp if on a Pi
+- March 29 added functionality to automatically orphan and to check core is online
+- Also made constants of size to rotate and number blocks to orphan & tally time and minimum log rows before orphan
+- April 1 fixed orphaning. Added selector to turn off automatic orphaning.
+- April 4 added setting to bug to separate bugfile, can be turned off or on
+- All of April a lot of testing and changes of no use. Making automatic orphaning reliable is critical
+- May 2 Corrected mintstatus() level changes, ie from L1 to L2 you need the 7200 plus 64800 etc as they are cumulative.
+- May 27 when leveling up to height, print 9999 e102e instead of actual minted & level if said error occurs 
+- and from then on "0M" (as it is still zero minted ). e102e indicates that your ID is not to be found on the blockchain.
+- This will be the case when you build from genesis up to the point when your ID first is created.
