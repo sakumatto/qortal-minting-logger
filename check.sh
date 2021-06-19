@@ -39,6 +39,8 @@ STARTTIME=$SECONDS
 
 # If you want automatic orphaning when tally stops increasing, change below to something else than ""
 
+# If you are having troubles and you see many instances of check.sh running, you can purge them in one go: `ps -x | grep check.sh | awk '{print $1}' | xargs kill -9`
+
 ### Change history
 ## March 16, 2021 added core version logging $VERSION
 ## March 20 added logging of core version number
